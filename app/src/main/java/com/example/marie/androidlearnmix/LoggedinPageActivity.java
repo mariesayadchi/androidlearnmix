@@ -6,23 +6,44 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.TextView;
 
 
-public class MainActivity extends ActionBarActivity {
-    public final static String EXTRA_MESSAGE = "com.example.marie.androidlearnmix.MESSAGE";
+public class LoggedinPageActivity extends ActionBarActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        // Get the message from the intent
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        setContentView(R.layout.activity_loggedin_page);
+
+        // Create the text view
+        TextView textView = (TextView)findViewById(R.id.textView1);
+        textView.setTextSize(30);
+        textView.setText(message);
+
+
+        final TextView tview = (TextView) findViewById(R.id.textView2);
+        tview.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // request your webservice here. Possible use of AsyncTask and ProgressDialog
+                // show the result here - dialog or Toast
+    open_menu("search");           }
+
+        });
+
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_loggedin_page, menu);
         return true;
     }
 
@@ -41,15 +62,7 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void doLogin(View view){
-        Intent intent = new Intent(this, LoggedinPageActivity.class);
-        EditText edit_message1 = (EditText) findViewById(R.id.textEdit_name);
-        String message = "Hi ";
-        message = message.concat(edit_message1.getText().toString());
-
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
-
+    public void open_menu(String where){
 
 
     }
